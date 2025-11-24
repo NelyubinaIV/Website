@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>РусЯзык Игры - Магия русского языка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Магические звезды */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Магический туман */
+        .magic-fog {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.1), transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        header {
+            padding: 2rem;
+            text-align: center;
+            background: rgba(15, 12, 41, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+            border-bottom: 2px solid rgba(138, 43, 226, 0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #da22ff, #9733ee, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(218, 34, 255, 0.5);
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(218, 34, 255, 0.6)); }
+            50% { filter: drop-shadow(0 0 40px rgba(218, 34, 255, 1)); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #da22ff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(218, 34, 255, 0.5);
+        }
+
+        nav {
+            margin-top: 1.5rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-weight: bold;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            transition: all 0.3s;
+            display: inline-block;
+            background: rgba(138, 43, 226, 0.2);
+            border: 2px solid rgba(138, 43, 226, 0.5);
+        }
+
+        nav a:hover {
+            background: rgba(138, 43, 226, 0.5);
+            border-color: #da22ff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(218, 34, 255, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            margin: 4rem 0;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #da22ff, #9733ee, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        h2::before, h2::after {
+            content: '✨';
+            position: absolute;
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h2::before {
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        h2::after {
+            right: 20%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .games-grid, .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(30, 20, 60, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(218, 34, 255, 0.1), transparent 70%);
+            animation: rotate 6s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(218, 34, 255, 0.5);
+            border-color: #da22ff;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #da22ff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #d0c9e8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .game-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: levitate 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(218, 34, 255, 0.6));
+        }
+
+        @keyframes levitate {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            background: linear-gradient(135deg, #da22ff, #9733ee);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+            box-shadow: 0 5px 20px rgba(218, 34, 255, 0.4);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(218, 34, 255, 0.7);
+        }
+
+        .product-card {
+            background: rgba(30, 20, 60, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s;
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(218, 34, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(218, 34, 255, 0.6);
+            border-color: #da22ff;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%);
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .product-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-content h3 {
+            color: #da22ff;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-content p {
+            color: #d0c9e8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 2rem;
+            color: #00d4ff;
+            font-weight: bold;
+            margin: 1rem 0;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+
+        .buy-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #00d4ff, #0066ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .buy-btn::before {
+            content: '✨';
+            position: absolute;
+            right: 20px;
+            font-size: 1.5rem;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 35px rgba(0, 212, 255, 0.7);
+            background: linear-gradient(135deg, #00e5ff, #0077ff);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(15, 12, 41, 0.9);
+            margin-top: 4rem;
+            border-top: 2px solid rgba(138, 43, 226, 0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #d0c9e8;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            nav a { display: block; margin: 0.5rem 0; }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(30, 20, 60, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            margin-bottom: 3rem;
+            box-shadow: 0 15px 50px rgba(218, 34, 255, 0.3);
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🔮';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .hero h2 {
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 1rem auto;
+            line-height: 1.8;
+            color: #d0c9e8;
+        }
+
+        .magic-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #da22ff, #9733ee);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            margin: 0.5rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(218, 34, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Магический фон -->
+    <div class="magic-fog"></div>
+    <div class="stars" id="stars"></div>
+
+    <header>
+        <h1>🔮 РусЯзык Игры</h1>
+        <p class="subtitle">✨ Магия русского языка ✨</p>
+        <nav>
+            <a href="#games">🎮 Магические игры</a>
+            <a href="#shop">🛍️ Магазин заклинаний</a>
+            <a href="#contact">📬 Связь с магом</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h2>🌟 Откройте портал в мир знаний!</h2>
+            <p>Погрузитесь в волшебный мир русского языка, где каждое слово обладает силой, а знания открывают магические способности. Овладейте древним искусством грамотности!</p>
+            <div style="margin-top: 2rem;">
+                <span class="magic-badge">⚡ Мощно</span>
+                <span class="magic-badge">🔥 Увлекательно</span>
+                <span class="magic-badge">💫 Эффективно</span>
+            </div>
+            <a href="#games" class="btn">🪄 Начать магию</a>
+        </div>
+
+        <section id="games">
+            <h2>🎮 Библиотека магических игр</h2>
+            <div class="games-grid">
+                <div class="card">
+                    <div class="game-icon">📜</div>
+                    <h3>Свиток словарных заклинаний</h3>
+                    <p>Изучайте древние свитки и составляйте магические слова! Каждое новое слово усиливает вашу лингвистическую магию.</p>
+                    <button class="btn">🌙 Открыть свиток</button>
+                </div>
+
+                <div class="card">
+                    <div class="game-icon">⚔️</div>
+                    <h3>Битва с ошибками</h3>
+                    <p>Используйте меч правописания против темных сил безграмотности! Побеждайте орды ошибок и становитесь мастером орфографии.</p>
+                    <button class="btn">⚡ В битву!</button>
+                </div>
+
+                <div class="card">
+                    <div class="game-icon">🔮</div>
+                    <h3>Хрустальный шар пунктуации</h3>
+                    <p>Загляните в будущее предложений и расставьте знаки препинания с магической точностью!</p>
+                    <button class="btn">🌠 Начать гадание</button>
+                </div>
+
+                <div class="card">
+                    <div class="game-icon">🧙</div>
+                    <h3>Академия грамматических магов</h3>
+                    <p>Обучайтесь в легендарной академии! Овладейте заклинаниями падежей, склонений и спряжений.</p>
+                    <button class="btn">📚 Поступить в академию</button>
+                </div>
+
+                <div class="card">
+                    <div class="game-icon">🌌</div>
+                    <h3>Портал историй</h3>
+                    <p>Создавайте магические порталы в миры своих историй, используя силу русского языка!</p>
+                    <button class="btn">🌀 Открыть портал</button>
+                </div>
+
+                <div class="card">
+                    <div class="game-icon">✨</div>
+                    <h3>Зелье синонимов</h3>
+                    <p>Варите магические зелья из слов! Смешивайте синонимы, антонимы и создавайте мощные лингвистические эликсиры.</p>
+                    <button class="btn">🧪 Начать алхимию</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="shop">
+            <h2>🛍️ Магазин волшебных артефактов</h2>
+            <div class="shop-grid">
+                <div class="product-card">
+                    <div class="product-image">👑</div>
+                    <div class="product-content">
+                        <h3>Корона премиум-мага</h3>
+                        <p>Безлимитный доступ ко всем магическим играм без рекламы! Получите эксклюзивные заклинания, уникальные артефакты и особые награды.</p>
+                        <p class="price">499 ₽/месяц</p>
+                        <a href="https://vk.ru/market/product/khudozhestvennye-tropy-9-klass-interaktivny-kvest-200127150-13408178" class="buy-btn">Купить сейчас</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">📖</div>
+                    <div class="product-content">
+                        <h3>Гримуар знаний</h3>
+                        <p>Древняя книга магических методик обучения через игры. 150+ упражнений и заданий для овладения русским языком.</p>
+                        <p class="price">799 ₽</p>
+                        <a href="https://example.com/payment/grimuar" class="buy-btn">Купить сейчас</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎴</div>
+                    <div class="product-content">
+                        <h3>Набор магических рун</h3>
+                        <p>Коллекция ярких стикеров с магическими символами и персонажами для мотивации! 50 уникальных рун силы.</p>
+                        <p class="price">299 ₽</p>
+                        <a href="https://example.com/payment/stickers" class="buy-btn">Купить сейчас</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🧙‍♂️</div>
+                    <div class="product-content">
+                        <h3>Личный наставник-маг</h3>
+                        <p>Индивидуальные онлайн-уроки с магистром русского языка. Персональный подход и игровая методика обучения.</p>
+                        <p class="price">1500 ₽/час</p>
+                        <a href="https://example.com/payment/mentor" class="buy-btn">Купить сейчас</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🏰</div>
+                    <div class="product-content">
+                        <h3>Замок знаний для школы</h3>
+                        <p>Лицензия для магических академий и школ. До 100 учеников + панель управления для учителя-мага.</p>
+                        <p class="price">12 999 ₽/год</p>
+                        <a href="https://example.com/payment/school" class="buy-btn">Купить сейчас</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💎</div>
+                    <div class="product-content">
+                        <h3>Легендарный артефакт</h3>
+                        <p>Все игры + гримуар + руны + 2 урока с магом + эксклюзивные заклинания. Максимальная магическая сила!</p>
+                        <p class="price">4 999 ₽</p>
+                        <a href="https://example.com/payment/legendary" class="buy-btn">Купить сейчас</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>📬 Связь с магическим советом</h2>
+            <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <div style="font-size: 4rem; margin-bottom: 1rem;">🔮</div>
+                <h3>Связаться</h3>
+                <p>Готова ответить на ваши вопросы и помочь начать магическое путешествие в мир русского языка!</p>
+
+                 <a href="https://t.me/+hMtyd0Kgi3djYmUy" class="btn" style="margin-top: 2rem;">Перейти в Телеграм</a>
+                 <a href="https://vk.ru/studyingrussianwithinterest" class="btn" style="margin-top: 2rem;">Перейти во ВКонтакте</a>
+                 <a href="https://vk.ru/im?sel=-200127150&entrypoint=community_page" class="btn" style="margin-top: 2rem;">Отправить послание</a>
+				            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p style="font-size: 1.8rem; margin-bottom: 0.5rem; background: linear-gradient(45deg, #da22ff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🔮✨ РусЯзык Игры ✨🔮</p>
+        <p style="color: #d0c9e8;">© 2025 Все права защищены магическими заклинаниями.</p>
+        <p style="margin-top: 1rem; color: #da22ff; font-weight: bold;">Каждое слово — это заклинание! 🌟📚🪄</p>
+    </footer>
+
+    <script>
+        // Создание звезд
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        createStars();
+
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Анимация кнопок
+        document.querySelectorAll('.btn, .buy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1.05)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
