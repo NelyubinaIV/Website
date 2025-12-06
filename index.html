@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>РусЯзык Игры - Магия русского языка</title>
+    <title>ИНТЕРАКТИВНЫЕ ИГРЫ - МАГИЯ РУССКОГО ЯЗЫКА</title>
     <style>
         * {
             margin: 0;
@@ -468,6 +468,106 @@
             font-weight: bold;
             box-shadow: 0 5px 15px rgba(218, 34, 255, 0.3);
         }
+		/* Карточки игр: выравнивание по центру */
+.game-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Окно для картинки игры */
+.game-preview {
+    width: 100%;
+    aspect-ratio: 4 / 3; /* прямоугольное окно; можно 16 / 9 */
+    border-radius: 16px;
+    margin-bottom: 1.2rem;
+    background: radial-gradient(circle at top,
+                rgba(218, 34, 255, 0.25),
+                rgba(15, 12, 41, 0.9));
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(218, 34, 255, 0.35);
+    z-index: 1;
+}
+
+/* Если вставляем внутрь <img> */
+.game-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Поменьше место под текст */
+.game-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.game-card p {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    max-width: 90%;
+}
+
+/* Кнопка строго по центру */
+.game-card .btn {
+    margin: 0.7rem auto 0; /* сверху поменьше, по бокам авто */
+    display: inline-block;
+}
+/* Карточка магазина в стиле игровых карточек */
+.product-card.magic-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Верхнее окно с картинкой */
+.product-card.magic-product .product-image {
+    width: 100%;
+    height: auto;                 /* убираем жёсткую высоту 250px */
+    padding: 1.5rem 1.5rem 0;
+    background: none;             /* убираем фиолетовый градиент */
+    display: block;
+    position: relative;
+    overflow: visible;
+}
+
+/* убираем сияющий круг из старого ::after */
+.product-card.magic-product .product-image::after {
+    display: none;
+}
+
+/* сама картинка игры */
+.product-card.magic-product .product-image img {
+    width: 100%;
+    display: block;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(218, 34, 255, 0.35);
+}
+
+/* контент по центру под картинкой */
+.product-card.magic-product .product-content {
+    padding: 1.5rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-card.magic-product .product-content h3 {
+    margin-bottom: 0.6rem;
+}
+
+.product-card.magic-product .product-content p {
+    margin-bottom: 0.9rem;
+    max-width: 90%;
+}
+
+/* кнопка строго по центру */
+.product-card.magic-product .buy-btn {
+    margin: 0.4rem auto 0;
+}
     </style>
 </head>
 <body>
@@ -476,8 +576,8 @@
     <div class="stars" id="stars"></div>
 
     <header>
-        <h1>🔮 РусЯзык Игры</h1>
-        <p class="subtitle">✨ Магия русского языка ✨</p>
+        <h1> ИНТЕРАКТИВНЫЕ ИГРЫ</h1>
+        <p class="subtitle">✨ МАГИЯ РУССКОГО ЯЗЫКА ✨</p>
         <nav>
             <a href="#games">🎮 Магические игры</a>
             <a href="#shop">🛍️ Магазин заклинаний</a>
@@ -496,50 +596,107 @@
             </div>
             <a href="#games" class="btn">🪄 Начать магию</a>
         </div>
-
         <section id="games">
-            <h2>🎮 Библиотека магических игр</h2>
-            <div class="games-grid">
-                <div class="card">
-                    <div class="game-icon">📜</div>
-                    <h3>Свиток словарных заклинаний</h3>
-                    <p>Изучайте древние свитки и составляйте магические слова! Каждое новое слово усиливает вашу лингвистическую магию.</p>
-                    <button class="btn">🌙 Открыть свиток</button>
+           
+<h2>🎮 Библиотека бесплатных магических игр</h2>
+  <div class="games-grid">
+  <div class="card game-card">
+      <div class="game-preview">
+        <!-- сюда вставишь картинку своей игры -->
+        <img src="images/4.png">
+        <!-- или потом просто поменяешь путь к файлу -->
+      </div>
+
+    <h4>Словарные слова 5 класс</h4>
+    <p>Загрузите файл со словами и отрабатывайте</p>
+
+    <a href="https://nelyubinaiv.github.io/Slovarn_slova/" 
+       class="btn" 
+       target="_blank" 
+       rel="noopener noreferrer">
+      ✨ Открыть
+    </a>
+   </div>
+  
+    <div class="card game-card">
+      <div class="game-preview">
+        <!-- сюда вставишь картинку своей игры -->
+        <img src="images/1.jpg">
+        <!-- или потом просто поменяешь путь к файлу -->
+      </div>
+
+    <h4>Словарный филворд 6 класс</h4>
+    <p>Найди 10 словарных слов и набери 100 баллов</p>
+
+    <a href="https://nelyubinaiv.github.io/Filword_6_1/" 
+       class="btn" 
+       target="_blank" 
+       rel="noopener noreferrer">
+      ✨ Открыть
+    </a>
+   </div>
+                <div class="card game-card">
+                   <div class="game-preview">
+    <!-- пока можно оставить пустым или сделать заглушку -->
+     <img src="images/2.png"> 
+</div>
+                    <h4>Приставки пре- и при- 6 класс</h4>
+    <p>Рассортируй слова по корзинам</p>
+
+    <a href="https://nelyubinaiv.github.io/igra-pri-pre/" 
+       class="btn" 
+       target="_blank" 
+       rel="noopener noreferrer">
+      ✨ Открыть
+    </a>
+</div>
+
+                <div class="card game-card">
+                <div class="game-preview">
+    <!-- пока можно оставить пустым или сделать заглушку -->
+     <img src="images/3.png"> 
+</div>
+                    <h4>Диалектные слова 6 класс</h4>
+    <p>Выбери диалектизмы из списка</p>
+
+    <a href="https://nelyubinaiv.github.io/Dialektizm/" 
+       class="btn" 
+       target="_blank" 
+       rel="noopener noreferrer">
+      ✨ Открыть
+    </a>
                 </div>
 
-                <div class="card">
-                    <div class="game-icon">⚔️</div>
-                    <h3>Битва с ошибками</h3>
-                    <p>Используйте меч правописания против темных сил безграмотности! Побеждайте орды ошибок и становитесь мастером орфографии.</p>
-                    <button class="btn">⚡ В битву!</button>
+                 <div class="card game-card">
+                <div class="game-preview">
+    <!-- пока можно оставить пустым или сделать заглушку -->
+     <img src="images/5.png"> 
+</div>
+                    <h4>Типы придаточной связи 8 класс</h4>
+    <p>Распредели словосочетания</p>
+
+    <a href="https://nelyubinaiv.github.io/igra-tip-svyazi/" 
+       class="btn" 
+       target="_blank" 
+       rel="noopener noreferrer">
+      ✨ Открыть
+    </a>
                 </div>
 
-                <div class="card">
-                    <div class="game-icon">🔮</div>
-                    <h3>Хрустальный шар пунктуации</h3>
-                    <p>Загляните в будущее предложений и расставьте знаки препинания с магической точностью!</p>
-                    <button class="btn">🌠 Начать гадание</button>
-                </div>
+                <div class="card game-card">
+                <div class="game-preview">
+    <!-- пока можно оставить пустым или сделать заглушку -->
+     <img src="images/6.png"> 
+</div>
+                    <h4>ССП 9 класс</h4>
+    <p>Кидай кубик, перемещайся по полю и выполняй задания</p>
 
-                <div class="card">
-                    <div class="game-icon">🧙</div>
-                    <h3>Академия грамматических магов</h3>
-                    <p>Обучайтесь в легендарной академии! Овладейте заклинаниями падежей, склонений и спряжений.</p>
-                    <button class="btn">📚 Поступить в академию</button>
-                </div>
-
-                <div class="card">
-                    <div class="game-icon">🌌</div>
-                    <h3>Портал историй</h3>
-                    <p>Создавайте магические порталы в миры своих историй, используя силу русского языка!</p>
-                    <button class="btn">🌀 Открыть портал</button>
-                </div>
-
-                <div class="card">
-                    <div class="game-icon">✨</div>
-                    <h3>Зелье синонимов</h3>
-                    <p>Варите магические зелья из слов! Смешивайте синонимы, антонимы и создавайте мощные лингвистические эликсиры.</p>
-                    <button class="btn">🧪 Начать алхимию</button>
+    <a href="https://nelyubinaiv.github.io/SSP/" 
+       class="btn" 
+       target="_blank" 
+       rel="noopener noreferrer">
+      ✨ Открыть
+    </a>
                 </div>
             </div>
         </section>
@@ -547,65 +704,165 @@
         <section id="shop">
             <h2>🛍️ Магазин волшебных артефактов</h2>
             <div class="shop-grid">
-                <div class="product-card">
-                    <div class="product-image">👑</div>
-                    <div class="product-content">
-                        <h3>Корона премиум-мага</h3>
-                        <p>Безлимитный доступ ко всем магическим играм без рекламы! Получите эксклюзивные заклинания, уникальные артефакты и особые награды.</p>
-                        <p class="price">499 ₽/месяц</p>
-                        <a href="https://vk.ru/market/product/khudozhestvennye-tropy-9-klass-interaktivny-kvest-200127150-13408178" class="buy-btn">Купить сейчас</a>
+                 <!-- Карточка в стиле скрина -->
+    <div class="product-card magic-product">
+      <div class="product-image">
+        <!-- окно с картинкой товара -->
+        <img src="./images/7.jpg">
+      </div>
+
+      <div class="product-content">
+        <h3>Комплект игр 5 класс</h3>
+        <p>Готовый комплект интерактивных игр для 5 класса</p>
+
+        <!-- цена остаётся как на картинке -->
+        <p class="price">1999 ₽/месяц</p>
+
+        <!-- здесь ссылка на сторонний сайт -->
+        <a href="https://vk.ru/market/product/5-klass-komplekt-razrabotok-200127150-12552487" 
+           class="buy-btn"
+           target="_blank"
+           rel="noopener noreferrer">
+          Купить сейчас
+        </a>
                     </div>
                 </div>
 
-                <div class="product-card">
-                    <div class="product-image">📖</div>
-                    <div class="product-content">
-                        <h3>Гримуар знаний</h3>
-                        <p>Древняя книга магических методик обучения через игры. 150+ упражнений и заданий для овладения русским языком.</p>
-                        <p class="price">799 ₽</p>
-                        <a href="https://example.com/payment/grimuar" class="buy-btn">Купить сейчас</a>
-                    </div>
+                <div class="shop-grid">
+
+    <!-- Карточка в стиле скрина -->
+    <div class="product-card magic-product">
+      <div class="product-image">
+        <!-- окно с картинкой товара -->
+        <img src="./images/8.jpg" alt="Словарные слова 5 класс">
+      </div>
+
+      <div class="product-content">
+        <h3>Комплект игр 6 класс</h3>
+        <p>Готовый комплект интерактивных игр для 6 класса</p>
+
+        <!-- цена остаётся как на картинке -->
+        <p class="price">699 ₽/месяц</p>
+
+        <!-- здесь ссылка на сторонний сайт -->
+        <a href="https://vk.ru/market/product/6-klass-komplekt-razrabotok-200127150-12552507" 
+           class="buy-btn"
+           target="_blank"
+           rel="noopener noreferrer">
+          Купить сейчас
+        </a>
+      </div>
+    </div>
                 </div>
 
-                <div class="product-card">
-                    <div class="product-image">🎴</div>
-                    <div class="product-content">
-                        <h3>Набор магических рун</h3>
-                        <p>Коллекция ярких стикеров с магическими символами и персонажами для мотивации! 50 уникальных рун силы.</p>
-                        <p class="price">299 ₽</p>
-                        <a href="https://example.com/payment/stickers" class="buy-btn">Купить сейчас</a>
-                    </div>
+                <div class="shop-grid">
+
+    <!-- Карточка в стиле скрина -->
+    <div class="product-card magic-product">
+      <div class="product-image">
+        <!-- окно с картинкой товара -->
+        <img src="./images/9.jpg" alt="Словарные слова 5 класс">
+      </div>
+
+      <div class="product-content">
+        <h3>Комплект игр 8 класс</h3>
+        <p>Готовый комплект интерактивных игр для 8 класса</p>
+
+        <!-- цена остаётся как на картинке -->
+        <p class="price">1599 ₽/месяц</p>
+
+        <!-- здесь ссылка на сторонний сайт -->
+        <a href="https://vk.ru/market/product/8-klass-komplekt-interaktivnykh-razrabotok-200127150-12552570" 
+           class="buy-btn"
+           target="_blank"
+           rel="noopener noreferrer">
+          Купить сейчас
+        </a>
+      </div>
+    </div>
                 </div>
 
-                <div class="product-card">
-                    <div class="product-image">🧙‍♂️</div>
-                    <div class="product-content">
-                        <h3>Личный наставник-маг</h3>
-                        <p>Индивидуальные онлайн-уроки с магистром русского языка. Персональный подход и игровая методика обучения.</p>
-                        <p class="price">1500 ₽/час</p>
-                        <a href="https://example.com/payment/mentor" class="buy-btn">Купить сейчас</a>
-                    </div>
+                <div class="shop-grid">
+
+    <!-- Карточка в стиле скрина -->
+    <div class="product-card magic-product">
+      <div class="product-image">
+        <!-- окно с картинкой товара -->
+        <img src="./images/10.jpg" alt="Словарные слова 5 класс">
+      </div>
+
+      <div class="product-content">
+        <h3>Художественные тропы 9 класс</h3>
+        <p>Интерактивный квест для подготовки к ОГЭ</p>
+
+        <!-- цена остаётся как на картинке -->
+        <p class="price">520 ₽/месяц</p>
+
+        <!-- здесь ссылка на сторонний сайт -->
+        <a href="https://vk.ru/market/product/khudozhestvennye-tropy-9-klass-interaktivny-kvest-200127150-13408178" 
+           class="buy-btn"
+           target="_blank"
+           rel="noopener noreferrer">
+          Купить сейчас
+        </a>
+      </div>
+    </div>
+                </div>
+				
+				<div class="shop-grid">
+
+    <!-- Карточка в стиле скрина -->
+    <div class="product-card magic-product">
+      <div class="product-image">
+        <!-- окно с картинкой товара -->
+        <img src="./images/11.jpg" alt="Словарные слова 5 класс">
+      </div>
+
+      <div class="product-content">
+        <h3>СПП. Комиксы 9 класс</h3>
+        <p>Все виды СПП в стиле комикса</p>
+
+        <!-- цена остаётся как на картинке -->
+        <p class="price">290 ₽/месяц</p>
+
+        <!-- здесь ссылка на сторонний сайт -->
+        <a href="https://vk.ru/market/product/slozhnopodchinennye-predlozhenia-komix-9-klass-200127150-13528072" 
+           class="buy-btn"
+           target="_blank"
+           rel="noopener noreferrer">
+          Купить сейчас
+        </a>
+      </div>
+    </div>
                 </div>
 
-                <div class="product-card">
-                    <div class="product-image">🏰</div>
-                    <div class="product-content">
-                        <h3>Замок знаний для школы</h3>
-                        <p>Лицензия для магических академий и школ. До 100 учеников + панель управления для учителя-мага.</p>
-                        <p class="price">12 999 ₽/год</p>
-                        <a href="https://example.com/payment/school" class="buy-btn">Купить сейчас</a>
-                    </div>
-                </div>
+                <div class="shop-grid">
 
-                <div class="product-card">
-                    <div class="product-image">💎</div>
-                    <div class="product-content">
-                        <h3>Легендарный артефакт</h3>
-                        <p>Все игры + гримуар + руны + 2 урока с магом + эксклюзивные заклинания. Максимальная магическая сила!</p>
-                        <p class="price">4 999 ₽</p>
-                        <a href="https://example.com/payment/legendary" class="buy-btn">Купить сейчас</a>
-                    </div>
+    <!-- Карточка в стиле скрина -->
+    <div class="product-card magic-product">
+      <div class="product-image">
+        <!-- окно с картинкой товара -->
+        <img src="./images/12.jpg" alt="Словарные слова 5 класс">
+      </div>
+
+      <div class="product-content">
+        <h3>ССП 9 класс</h3>
+        <p>Комплект интерактивных разработок для 9 класса по теме «Сложносочиненные предложения»а</p>
+
+        <!-- цена остаётся как на картинке -->
+        <p class="price">350 ₽/месяц</p>
+
+        <!-- здесь ссылка на сторонний сайт -->
+        <a href="https://vk.ru/market/product/slozhnosochinennye-predlozhenia-9-klass-komplekt-interaktivnykh-igr-200127150-13124966" 
+           class="buy-btn"
+           target="_blank"
+           rel="noopener noreferrer">
+          Купить сейчас
+        </a>
+      </div>
+    </div>
                 </div>
+				
             </div>
         </section>
 
@@ -624,7 +881,7 @@
     </div>
 
     <footer>
-        <p style="font-size: 1.8rem; margin-bottom: 0.5rem; background: linear-gradient(45deg, #da22ff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🔮✨ РусЯзык Игры ✨🔮</p>
+        <p style="font-size: 1.8rem; margin-bottom: 0.5rem; background: linear-gradient(45deg, #da22ff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">🔮✨ ИНТЕРАКТИВНЫЕ ИГРЫ ✨🔮</p>
         <p style="color: #d0c9e8;">© 2025 Все права защищены магическими заклинаниями.</p>
         <p style="margin-top: 1rem; color: #da22ff; font-weight: bold;">Каждое слово — это заклинание! 🌟📚🪄</p>
     </footer>
