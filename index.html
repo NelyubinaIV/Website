@@ -57,15 +57,19 @@
         }
 
         header {
-            padding: 2rem;
-            text-align: center;
-            background: rgba(15, 12, 41, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
-            border-bottom: 2px solid rgba(138, 43, 226, 0.5);
-            position: relative;
-            z-index: 10;
-        }
+    padding: 2rem;
+    text-align: center;
+    background: rgba(15, 12, 41, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+    border-bottom: 2px solid rgba(138, 43, 226, 0.5);
+
+    /* ВАЖНО: делаем шапку «липкой» */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
 
         h1 {
             font-size: 3.5rem;
@@ -114,6 +118,14 @@
             box-shadow: 0 10px 25px rgba(218, 34, 255, 0.4);
         }
 
+		nav a.active {
+			background: rgba(138, 43, 226, 0.9);
+			border-color: #ff9cff;
+			box-shadow: 0 0 25px rgba(218, 34, 255, 0.8);
+			transform: translateY(-2px);
+		}
+
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -123,8 +135,10 @@
         }
 
         section {
-            margin: 4rem 0;
-        }
+    margin: 4rem 0;
+    scroll-margin-top: 140px; /* подстроит прокрутку с учётом высоты шапки */
+}
+
 
         h2 {
             font-size: 2.8rem;
@@ -723,7 +737,7 @@
            class="buy-btn"
            target="_blank"
            rel="noopener noreferrer">
-          Посмотреть
+          Купить сейчас
         </a>
                     </div>
                 </div>
@@ -749,7 +763,7 @@
            class="buy-btn"
            target="_blank"
            rel="noopener noreferrer">
-          Посмотреть
+          Купить сейчас
         </a>
       </div>
     </div>
@@ -776,7 +790,7 @@
            class="buy-btn"
            target="_blank"
            rel="noopener noreferrer">
-          Посмотреть
+          Купить сейчас
         </a>
       </div>
     </div>
@@ -803,7 +817,7 @@
            class="buy-btn"
            target="_blank"
            rel="noopener noreferrer">
-          Посмотреть
+          Купить сейчас
         </a>
       </div>
     </div>
@@ -830,7 +844,7 @@
            class="buy-btn"
            target="_blank"
            rel="noopener noreferrer">
-          Посмотреть
+          Купить сейчас
         </a>
       </div>
     </div>
@@ -857,7 +871,7 @@
            class="buy-btn"
            target="_blank"
            rel="noopener noreferrer">
-          Посмотреть
+          Купить сейчас
         </a>
       </div>
     </div>
@@ -911,6 +925,41 @@
                 }
             });
         });
+
+// Подсветка активного пункта меню при скролле
+const navLinks = document.querySelectorAll('header nav a[href^="#"]');
+const sections = document.querySelectorAll('section[id]');
+
+function setActiveNavLink() {
+    const scrollPos = window.scrollY + 150; // небольшой запас под высоту шапки
+    let currentId = null;
+
+    sections.forEach(section => {
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        if (scrollPos >= top && scrollPos < bottom) {
+            currentId = section.id;
+        }
+    });
+
+    // если мы ещё выше первого блока — активной считаем первую кнопку
+    if (!currentId && sections.length && scrollPos < sections[0].offsetTop) {
+        currentId = sections[0].id;
+    }
+
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === '#' + currentId) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', setActiveNavLink);
+window.addEventListener('load', setActiveNavLink);
+
 
         // Анимация кнопок
         document.querySelectorAll('.btn, .buy-btn').forEach(button => {
